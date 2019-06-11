@@ -1,0 +1,88 @@
+from tkinter import *
+pencere = Tk()
+pencere.title('E-Katolog')
+pencere.geometry("800x500")
+
+def verial():
+    veri = giris.get()
+    veritabani = open(r"metindosyasi.txt", "r")
+
+    if veri == "1":
+        ekle()
+
+
+    elif veri == "2":
+        etiket2.config(text="E-Katalog Mevcut Kitaplar:", font=("Flux", 15, "bold"), fg="black")
+        veritabani.seek(0)
+
+        etiket3.config(text= veritabani.read(), font=("Dotum", 15))
+        
+        
+
+
+    elif veri == "3":
+        araetiket.config(text="Program Mete Özcan tarafından yapılmıştır.", fg="grey", font=("Flux", 12, "bold"))
+
+
+
+    elif veri == "":
+        etiket2["text"] = "Lütfen boş bırakmayınız! "
+
+    else:
+        etiket2["text"] = "Hata!"
+
+def ekle():
+    veritabani = open(r"metindosyasi.txt", "a+")
+    giris.pack_forget()
+    buton.pack_forget()
+    giris2.pack()
+    buton2.pack()
+    etiket["text"] = "Kataloga ekleyeceğiniz kitabın adını giriniz:"
+    
+    veritabani.write(giris2.get())
+    giris2.config(text=veritabani.write("\n"))
+    
+    if giris2.config(text = "2"):
+        giris2.pack_forget()
+        buton2.pack_forget()
+        giris.pack()
+        buton.pack()
+girisekrani = Label(text="""Kitap eklemek icin 1 
+  Mevcut kitapları görmek için 2
+  Program Hakkinda 3 
+  """, font=("Dotum",15,"bold"))
+girisekrani.pack()
+
+etiket = Label(text="Seçimizi yapınız: ", font=(24))
+etiket.pack()
+
+giris = Entry()
+giris.pack()
+giris2 = Entry()
+
+buton = Button(pencere)
+buton.config(text="Onayla", bg="red", fg="white", activebackground="blue",
+              activeforeground="black", font=("Calibri", 12), command=verial)
+buton.pack(expand="yes", anchor="center")
+
+
+buton2 = Button(text="Ekle!", command=ekle, font=(24))
+
+
+
+
+etiket2 = Label(text="")
+etiket2.pack()
+
+araetiket = Label(text="")
+araetiket.pack()
+
+etiket3 = Label(text="")
+etiket3.pack()
+
+
+UygulamayıKapat = Button(pencere)
+UygulamayıKapat.config(text="Çıkış", bg="red", fg="white", activebackground="blue",
+              activeforeground="black", font=("Calibri", 12), command=pencere.destroy)
+UygulamayıKapat.pack(side=RIGHT)
+pencere.mainloop()
